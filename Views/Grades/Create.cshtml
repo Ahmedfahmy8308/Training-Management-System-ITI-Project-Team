@@ -1,3 +1,4 @@
+@using Training_Management_System_ITI_Project.Models
 @model Training_Management_System_ITI_Project.ViewModels.GradeViewModel
 
 @{
@@ -14,15 +15,22 @@
             
             <div class="form-group mb-3">
                 <label asp-for="SessionId" class="control-label"></label>
-                <select asp-for="SessionId" class="form-control" asp-items="@(new SelectList(Model.AvailableSessions.Select(s => new { Id = s.Id, DisplayText = $"{s.Course.Name} - {s.StartDate:MM/dd/yyyy}" }), "Id", "DisplayText"))">
+                <select asp-for="SessionId" class="form-control">
                     <option value="">-- Select Session --</option>
+                    @if (Model.AvailableSessions != null)
+                    {
+                        @foreach (var session in Model.AvailableSessions)
+                        {
+                            <option value="@session.Id">@(session.Course?.Name ?? "Unknown Course") - @session.StartDate.ToString("MM/dd/yyyy")</option>
+                        }
+                    }
                 </select>
                 <span asp-validation-for="SessionId" class="text-danger"></span>
             </div>
             
             <div class="form-group mb-3">
                 <label asp-for="TraineeId" class="control-label"></label>
-                <select asp-for="TraineeId" class="form-control" asp-items="@(new SelectList(Model.AvailableTrainees, "Id", "Name"))">
+                <select asp-for="TraineeId" class="form-control" asp-items="@(new SelectList(Model.AvailableTrainees ?? new List<ApplicationUser>(), "Id", "FullName"))">
                     <option value="">-- Select Trainee --</option>
                 </select>
                 <span asp-validation-for="TraineeId" class="text-danger"></span>

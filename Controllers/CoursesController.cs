@@ -135,7 +135,6 @@ namespace Training_Management_System_ITI_Project.Controllers
 
       if (ModelState.IsValid)
       {
-        
         if (!await _courseRepository.IsNameUniqueAsync(viewModel.Name, viewModel.Id))
         {
           ModelState.AddModelError("Name", "A course with this name already exists.");

@@ -1,3 +1,4 @@
+@using Training_Management_System_ITI_Project.Models
 @model Training_Management_System_ITI_Project.ViewModels.CourseViewModel
 
 @{
@@ -26,7 +27,7 @@
             
             <div class="form-group mb-3">
                 <label asp-for="InstructorId" class="control-label">Instructor</label>
-                <select asp-for="InstructorId" class="form-control" asp-items="@(new SelectList(Model.AvailableInstructors, "Id", "Name"))">
+                <select asp-for="InstructorId" class="form-control" asp-items="@(new SelectList(Model.AvailableInstructors ?? new List<ApplicationUser>(), "Id", "FullName"))">
                     <option value="">-- Select Instructor (Optional) --</option>
                 </select>
                 <span asp-validation-for="InstructorId" class="text-danger"></span>
